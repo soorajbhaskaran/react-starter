@@ -1,21 +1,108 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true },
-  extends: [
-    'eslint:recommended',
-    'plugin:react/recommended',
-    'plugin:react/jsx-runtime',
-    'plugin:react-hooks/recommended',
-  ],
-  ignorePatterns: ['dist', '.eslintrc.cjs'],
-  parserOptions: { ecmaVersion: 'latest', sourceType: 'module' },
-  settings: { react: { version: '18.2' } },
-  plugins: ['react-refresh'],
-  rules: {
-    'react/jsx-no-target-blank': 'off',
-    'react-refresh/only-export-components': [
-      'warn',
-      { allowConstantExport: true },
-    ],
+  env: {
+    browser: true,
+    es2020: true,
+    es6: true,
+    commonjs: true,
+    node: true,
   },
-}
+  extends: [
+    "eslint:recommended",
+    "plugin:react/recommended",
+    "./.eslint-rules/imports/order.cjs",
+    "./.eslint-rules/overrides.cjs",
+    "./.eslint-rules/imports/enforced.cjs",
+    "./.eslint-rules/react.cjs",
+    "./.eslint-rules/promise.cjs",
+    "prettier",
+  ],
+  settings: {
+    react: {
+      version: "detect",
+    },
+    "import/resolver": {
+      node: {
+        extensions: [".js", ".jsx", ".ts", ".tsx", ".svg", ".json", ".mp3"],
+      },
+    },
+  },
+  parserOptions: {
+    ecmaFeatures: {
+      jsx: true,
+    },
+    ecmaVersion: 2018,
+    sourceType: "module",
+  },
+  parser: "@typescript-eslint/parser",
+  plugins: [
+    "react",
+    "prettier",
+    "import",
+    "react-hooks",
+    "promise",
+    "unused-imports",
+  ],
+  rules: {
+    "prettier/prettier": "error",
+    "no-unused-vars": [
+      "error",
+      {
+        args: "all",
+        argsIgnorePattern: "^_",
+        destructuredArrayIgnorePattern: "^_",
+        caughtErrors: "all",
+      },
+    ],
+    "no-undef": "error",
+    "no-console": "error",
+    "consistent-return": "error",
+    "padding-line-between-statements": [
+      "error",
+      { blankLine: "always", prev: "if", next: ["if", "return"] },
+      { blankLine: "always", prev: "*", next: "return" },
+      {
+        blankLine: "always",
+        prev: [
+          "block",
+          "multiline-block-like",
+          "function",
+          "iife",
+          "multiline-const",
+          "multiline-expression",
+        ],
+        next: ["function", "iife", "multiline-const", "multiline-expression"],
+      },
+    ],
+    curly: ["error", "multi-line"],
+    "no-else-return": "error",
+    "comma-dangle": [
+      "error",
+      {
+        arrays: "always-multiline",
+        objects: "always-multiline",
+        imports: "always-multiline",
+        exports: "always-multiline",
+        functions: "never",
+      },
+    ],
+    "prefer-const": "error",
+    eqeqeq: "error",
+    "no-unsafe-optional-chaining": "error",
+    "unused-imports/no-unused-imports": "error",
+    "no-nested-ternary": "warn",
+    "arrow-body-style": ["error", "as-needed"],
+    "prefer-template": "error",
+    "no-unneeded-ternary": ["error", { defaultAssignment: false }],
+    "object-shorthand": [
+      "error",
+      "always",
+      { avoidQuotes: true, ignoreConstructors: true },
+    ],
+    "prefer-arrow-callback": ["error", { allowUnboundThis: true }],
+    "no-duplicate-imports": ["error", { includeExports: true }],
+    "no-implicit-coercion": ["error", { allow: ["!!"] }],
+    "no-var": "error",
+    "react/jsx-newline": ["error", { prevent: true }],
+    "react/react-in-jsx-scope": "off",
+  },
+};
